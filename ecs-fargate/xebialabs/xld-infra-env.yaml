@@ -1,0 +1,23 @@
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: webinar-synopsys
+  type: core.Directory
+  children:
+  - name: aws-webinar-synopsys
+    type: aws.Cloud
+    accesskey: !value AWSAccessKey
+    accessSecret: !value AWSAccessSecret
+
+---
+
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- name: webinar-synopsys
+  type: core.Directory
+  children:
+  - name: aws-cloudformation-webinar-synopsys
+    type: udm.Environment
+    members:
+    - Infrastructure/webinar-synopsys/aws-webinar-synopsys

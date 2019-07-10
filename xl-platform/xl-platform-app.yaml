@@ -1,0 +1,70 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/webinar-synopsys-ecs-xl-platform
+  type: udm.Application
+  children:
+  - name: Applications/webinar-synopsys-ecs-xl-platform/1.0
+    type: udm.DeploymentPackage
+    orchestrator:
+    - sequential-by-deployment-group
+    deployables:
+    - name: webinar-synopsys-xl-platform-service
+      type: aws.ecs.ServiceSpec
+      launchType: FARGATE
+      networkMode: awsvpc
+      cpu: "2048"
+      memory: "8192"
+      executionRole: arn:aws:iam::390157638997:role/ecsTaskExecutionRole
+      subnets:
+      - Name:webinar-synopsys-ecs-subnet-ipv4-az-1b
+      - Name:webinar-synopsys-ecs-subnet-ipv4-az-1a
+      securityGroups:
+      - Name:webinar-synopsys-ecs-security-group
+      assignPublicIp: "true"
+      serviceName: webinar-synopsys-ecs-xl-platform-service
+      desiredCount: "1"
+      containerDefinitions:
+      - name: xl-deploy
+        type: aws.ecs.ContainerDefinitionSpec
+        containerName: xl-deploy
+        image: !value IMAGE_XLD
+        cpu: "1024"
+        softMemoryLimit: "4096"
+        environment:
+          ACCEPT_EULA: "Y"
+          ADMIN_PASSWORD: "roflcopter"
+        logConfiguration:
+        - name: awslogs
+          type: aws.ecs.LogConfigurationSpec
+          logDriver: awslogs
+          options:
+            awslogs-stream-prefix: xld
+            awslogs-region: us-east-2
+            awslogs-group: webinar-synopsys
+        portMappings:
+        - name: port-mapping-4516
+          type: aws.ecs.PortSpec
+          containerPort: "4516"
+      - name: xl-release
+        type: aws.ecs.ContainerDefinitionSpec
+        containerName: xl-release
+        image: !value IMAGE_XLR
+        cpu: "1024"
+        softMemoryLimit: "4096"
+        environment:
+          ACCEPT_EULA: "Y"
+          ADMIN_PASSWORD: "roflcopter"
+        logConfiguration:
+        - name: awslogs
+          type: aws.ecs.LogConfigurationSpec
+          logDriver: awslogs
+          options:
+            awslogs-stream-prefix: xlr
+            awslogs-region: us-east-2
+            awslogs-group: webinar-synopsys
+        portMappings:
+        - name: port-mapping-5516
+          type: aws.ecs.PortSpec
+          containerPort: "5516"
