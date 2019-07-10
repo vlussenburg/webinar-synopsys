@@ -12,24 +12,24 @@ version: '3'
 services:
   xld:
     build: xld
-    image: ${DOCKER_HUB_REPONAME}/webinar-synopsys-xld:1.2
+    image: webinar-synopsys-xld
     volumes:
       - ~/xl-licenses:/license
     environment:
       - ACCEPT_EULA=Y
-      - ADMIN_PASSWORD=roflcopter
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     ports:
-     - "14516:4516"
+     - "4516:4516"
 
   xlr:
     build: xlr
-    image: ${DOCKER_HUB_REPONAME}/webinar-synopsys-xlr:1.2
+    image: webinar-synopsys-xlr
     links:
      - xld
     volumes:
       - ~/xl-licenses:/license
     environment:
       - ACCEPT_EULA=Y
-      - ADMIN_PASSWORD=roflcopter
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     ports:
-     - "15516:5516"
+     - "5516:5516"
