@@ -14,7 +14,7 @@ services:
     build: xld
     image: webinar-synopsys-xld
     volumes:
-      - ~/xl-licenses:/license
+      - ./xld/plugins:/opt/xebialabs/xl-deploy-server/plugins
     environment:
       - ACCEPT_EULA=Y
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
@@ -27,7 +27,7 @@ services:
     links:
      - xld
     volumes:
-      - ~/xl-licenses:/license
+      - ./xlr/plugins:/opt/xebialabs/xl-release-server/plugins
     environment:
       - ACCEPT_EULA=Y
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
