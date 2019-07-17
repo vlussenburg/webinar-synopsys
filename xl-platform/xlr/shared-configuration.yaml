@@ -24,5 +24,4 @@ spec:
 - name: seeker
   type: seeker.Server
   url: !value seeker_url
-  username: !value seeker_username
-  password: !value seeker_password
+  accessToken: !value seeker_token
