@@ -30,3 +30,4 @@ spec:
   url: !value snow_url
   username: !value snow_username
   password: !value snow_password
+  useServicenowApp: "True"
