@@ -1,0 +1,28 @@
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- name: Jenkins
+  type: jenkins.Server
+  url: http://jenkins:8080
+  username: admin
+  password: admin
+- name: XL Deploy
+  type: xldeploy.XLDeployServer
+  url: !value xld_url
+  username: !value xld_username
+  password: !value xld_password
+- name: XL Jira
+  type: jira.Server
+  url: !value jira_url
+  username: !value jira_username
+  password: !value jira_password
+- name: bizdevhub
+  type: blackduck.Server
+  url: !value blackduck_url
+  username: !value blackduck_username
+  password: !value blackduck_password
+- name: seeker
+  type: seeker.Server
+  url: !value seeker_url
+  username: !value seeker_username
+  password: !value seeker_password

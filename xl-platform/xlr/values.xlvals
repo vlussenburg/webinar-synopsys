@@ -1,0 +1,9 @@
+
+xld_url = http://ec2-34-226-204-140.compute-1.amazonaws.com:4516
+xld_username = admin
+
+blackduck_url = https://bizdevhub.blackducksoftware.com 
+blackduck_username = XebiaLabs
+
+seeker_url = https://seeker-vm.synopsys-alliances.com:8443
+seeker_username = xebialabs

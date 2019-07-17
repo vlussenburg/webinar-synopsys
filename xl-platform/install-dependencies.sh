@@ -4,3 +4,6 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 sudo usermod -a -G docker $USER
 sudo service docker start
+
+
+	
