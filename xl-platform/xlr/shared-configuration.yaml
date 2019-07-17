@@ -25,3 +25,8 @@ spec:
   type: seeker.Server
   url: !value seeker_url
   accessToken: !value seeker_token
+- name: snow
+  type: servicenow.Server
+  url: !value snow_url
+  username: !value snow_username
+  password: !value snow_password

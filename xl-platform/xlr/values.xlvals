@@ -7,3 +7,6 @@ blackduck_username = XebiaLabs
 
 seeker_url = https://seeker-vm.synopsys-alliances.com:8443
 seeker_username = xebialabs
+
+snow_url = https://dev55822.service-now.com/
+snow_username = admin
