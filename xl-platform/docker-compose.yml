@@ -18,6 +18,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - XL_LICENSE=${XLD_LICENSE}
     ports:
      - "4516:4516"
 
@@ -31,5 +32,6 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - XL_LICENSE=${XLR_LICENSE}
     ports:
      - "5516:5516"
