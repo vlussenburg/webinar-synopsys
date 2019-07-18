@@ -12,7 +12,6 @@ version: '3'
 services:
   xld:
     build: xld
-    image: webinar-synopsys-xld
     volumes:
       - ./xld/plugins:/opt/xebialabs/xl-deploy-server/plugins
     environment:
@@ -24,7 +23,6 @@ services:
 
   xlr:
     build: xlr
-    image: webinar-synopsys-xlr
     links:
      - xld
     volumes:
