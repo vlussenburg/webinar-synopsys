@@ -5,7 +5,7 @@ xld_username = admin
 blackduck_url = https://bizdevhub.blackducksoftware.com 
 blackduck_username = XebiaLabs
 
-seeker_url = https://seeker-vm.synopsys-alliances.com:8443
+seeker_url = http://ec2-18-218-251-228.us-east-2.compute.amazonaws.com:8080/
 seeker_username = xebialabs
 
 snow_url = https://dev55822.service-now.com/

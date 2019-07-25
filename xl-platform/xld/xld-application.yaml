@@ -1,0 +1,47 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+  - name: InsecureBank
+    type: udm.Application
+    children:
+      - name: Applications/InsecureBank/1.0.0
+        type: udm.DeploymentPackage
+        deployables:
+        - name: insecure-bank
+          type: tomcat.War
+          file: !file "insecure-bank.war"
+          contextRoot: /
+          scanPlaceholders: true
+        - name: docker-insecure-bank-web
+          type: docker.ContainerSpec
+          containerName: insecure-bank
+          image: vlussenburg/insecure-bank-web:1.0.0
+          environment:
+            SEEKER_SERVER_URL: {{SEEKER_SERVER_URL}}
+            JAVA_TOOL_OPTIONS: {{JAVA_TOOL_OPTIONS}}
+          showLogsAfter: "5"
+          portBindings:
+          - name: pm-80
+            type: docker.PortSpec
+            hostPort: "10081"
+            containerPort: "80"
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+  - name: Environments/dev
+    type: udm.Environment
+    members:
+    - ~Infrastructure/docker
+
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: Infrastructure/host
+  type: overthere.LocalHost
+  os: UNIX
+- name: docker
+  type: docker.Engine
+  dockerHost: !value DOCKER_HOST

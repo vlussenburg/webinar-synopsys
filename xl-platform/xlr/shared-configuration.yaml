@@ -3,15 +3,15 @@ kind: Templates
 spec:
 - name: Jenkins
   type: jenkins.Server
-  url: http://jenkins:8080
-  username: admin
-  password: admin
+  url:  http://ec2-18-191-174-205.us-east-2.compute.amazonaws.com:8080
+  username: vincent
+  password: admin123@
 - name: XL Deploy
   type: xldeploy.XLDeployServer
   url: !value xld_url
   username: !value xld_username
   password: !value xld_password
-- name: XL Jira
+- name: Xebialabs JIRA
   type: jira.Server
   url: !value jira_url
   username: !value jira_username
