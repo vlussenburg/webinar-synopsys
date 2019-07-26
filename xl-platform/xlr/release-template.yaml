@@ -6,6 +6,8 @@ metadata:
 spec:
 - template: Sample Release Template with XL Deploy
   description: Major and minor release template.
+  scheduledStartDate: 2019-07-26T20:36:40.357Z
+  dueDate: 2019-07-26T21:36:40.357Z
   phases:
   - phase: QA
     tasks:
@@ -97,6 +99,13 @@ spec:
         operationalRiskHighThreshold: 999
         operationalRiskMediumThreshold: 999
         operationalRiskLowThreshold: 999
+      - name: Verify no Seeker vulnerabilities
+        type: seeker.CheckCompliance
+        server: seeker
+        projectKey: bois
+        projectVersion: ${packageVersion}
+        severity: CRITICAL
+        threshold: "0"
     - name: Sign off by QA
       type: xlrelease.GateTask
       team: QA
@@ -144,6 +153,36 @@ spec:
         operationalRiskHighThreshold: 999
         operationalRiskMediumThreshold: 999
         operationalRiskLowThreshold: 999
+    - name: Check UAT Compliance
+      type: xlrelease.ParallelGroup
+      tasks:
+      - name: Verify BlackDuck Compliance - Application
+        type: blackduck.checkCompliance
+        blackduckServer: bizdevhub
+        projectName: ${application}
+        versionName: App-Build-${packageVersion}
+        securityRiskMediumThreshold: 25
+        securityRiskLowThreshold: 100
+        licenseRiskHighThreshold: 10
+        licenseRiskMediumThreshold: 10
+        licenseRiskLowThreshold: 10
+        operationalRiskHighThreshold: 999
+        operationalRiskMediumThreshold: 999
+        operationalRiskLowThreshold: 999
+      - name: Verify BlackDuck Compliance - Container
+        type: blackduck.checkCompliance
+        blackduckServer: bizdevhub
+        projectName: ${application}
+        versionName: Container-Build-${packageVersion}
+        securityRiskHighThreshold: 5
+        securityRiskMediumThreshold: 5
+        securityRiskLowThreshold: 5
+        licenseRiskHighThreshold: 10
+        licenseRiskMediumThreshold: 10
+        licenseRiskLowThreshold: 10
+        operationalRiskHighThreshold: 999
+        operationalRiskMediumThreshold: 999
+        operationalRiskLowThreshold: 999
     - name: Deploy ${packageId} to ACC environment
       type: xldeploy.Deploy
       server: XL Deploy
@@ -159,6 +198,13 @@ spec:
       - name: Execute UA test
         type: xlrelease.Task
         team: QA
+    - name: Verify no Seeker vulnerabilities
+      type: seeker.CheckCompliance
+      server: seeker
+      projectKey: bois
+      projectVersion: ${packageVersion}
+      severity: CRITICAL
+      threshold: "0"
     - name: Approve
       type: xlrelease.GateTask
       team: QA
@@ -210,6 +256,13 @@ spec:
     - name: Execute smoke tests
       type: xlrelease.Task
       team: QA
+    - name: Verify no Seeker vulnerabilities
+      type: seeker.CheckCompliance
+      server: seeker
+      projectKey: bois
+      projectVersion: ${packageVersion}
+      severity: CRITICAL
+      threshold: "0"
     - name: Notification
       type: xlrelease.ParallelGroup
       tasks:
@@ -237,6 +290,7 @@ spec:
     key: application
   riskProfile: Default risk profile
 - type: xlrelease.Dashboard
+  owner: admin
   tiles:
   - name: Release progress
     type: xlrelease.ReleaseProgressTile
@@ -250,6 +304,7 @@ spec:
     type: xlrelease.ReleaseHealthTile
   parentTemplate: Configure XL Release
 - type: xlrelease.Dashboard
+  owner: admin
   tiles:
   - name: Release progress
     type: xlrelease.ReleaseProgressTile
@@ -263,6 +318,7 @@ spec:
     type: xlrelease.ReleaseHealthTile
   parentTemplate: 'Deployment pattern: Blue / Green'
 - type: xlrelease.Dashboard
+  owner: admin
   tiles:
   - name: Release progress
     type: xlrelease.ReleaseProgressTile
@@ -276,6 +332,7 @@ spec:
     type: xlrelease.ReleaseHealthTile
   parentTemplate: 'Deployment pattern: Canary Release'
 - type: xlrelease.Dashboard
+  owner: admin
   tiles:
   - name: Release progress
     type: xlrelease.ReleaseProgressTile
@@ -289,6 +346,7 @@ spec:
     type: xlrelease.ReleaseHealthTile
   parentTemplate: Guided Tour for Release Managers
 - type: xlrelease.Dashboard
+  owner: admin
   tiles:
   - name: Release progress
     type: xlrelease.ReleaseProgressTile
@@ -361,6 +419,7 @@ spec:
     environment: Environments/dev
   parentTemplate: Sample Release Template with XL Deploy
 - type: xlrelease.Dashboard
+  owner: admin
   tiles:
   - name: Release progress
     type: xlrelease.ReleaseProgressTile
