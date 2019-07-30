@@ -38,3 +38,13 @@ snow_password =
 1. `docker-compose up -d` 
 
 
+```
+
+The filters to surface would be, 
+“Severity (enumeration)“, 
+“Seeker Verified (true/false)“, 
+Important: Version (free form text)
+
+
+Nice to have: Checkers (multi selection list), date/time range 
+```

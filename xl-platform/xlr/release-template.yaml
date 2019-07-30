@@ -23,37 +23,20 @@ spec:
         type: xlrelease.GateCondition
       - name: Release Notifyes available
         type: xlrelease.GateCondition
-    - name: Check QA Compliance
-      type: xlrelease.ParallelGroup
-      tasks:
-      - name: Verify BlackDuck Compliance - Application
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: App-Build-${packageVersion}
-        securityRiskHighThreshold: 5
-        securityRiskMediumThreshold: 25
-        securityRiskLowThreshold: 100
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-      - name: Verify BlackDuck Compliance - Container
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: Container-Build-${packageVersion}
-        securityRiskHighThreshold: 5
-        securityRiskMediumThreshold: 5
-        securityRiskLowThreshold: 5
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
+    - name: Verify BlackDuck Compliance
+      type: blackduck.checkCompliance
+      blackduckServer: bizdevhub
+      projectName: ${application}
+      versionName: App-Build-${packageVersion}
+      securityRiskHighThreshold: 5
+      securityRiskMediumThreshold: 25
+      securityRiskLowThreshold: 100
+      licenseRiskHighThreshold: 10
+      licenseRiskMediumThreshold: 10
+      licenseRiskLowThreshold: 10
+      operationalRiskHighThreshold: 999
+      operationalRiskMediumThreshold: 999
+      operationalRiskLowThreshold: 999
     - name: Deploy package to the QA environment
       type: xldeploy.Deploy
       server: XL Deploy
@@ -69,43 +52,13 @@ spec:
       - name: Regression tests
         type: xlrelease.Task
         team: QA
-    - name: Check UAT Compliance
-      type: xlrelease.ParallelGroup
-      tasks:
-      - name: Verify BlackDuck Compliance - Application
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: App-Build-${packageVersion}
-        securityRiskMediumThreshold: 25
-        securityRiskLowThreshold: 100
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-      - name: Verify BlackDuck Compliance - Container
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: Container-Build-${packageVersion}
-        securityRiskHighThreshold: 5
-        securityRiskMediumThreshold: 5
-        securityRiskLowThreshold: 5
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-      - name: Verify no Seeker vulnerabilities
-        type: seeker.CheckCompliance
-        server: seeker
-        projectKey: bois
-        projectVersion: ${packageVersion}
-        severity: CRITICAL
-        threshold: "0"
+    - name: Verify no Seeker vulnerabilities
+      type: seeker.CheckCompliance
+      server: seeker
+      projectKey: bois
+      projectVersion: ${packageVersion}
+      severity: CRITICAL
+      threshold: "0"
     - name: Sign off by QA
       type: xlrelease.GateTask
       team: QA
@@ -123,66 +76,19 @@ spec:
       conditions:
       - name: Verify environment availability
         type: xlrelease.GateCondition
-    - name: Check UAT Compliance
-      type: xlrelease.ParallelGroup
-      tasks:
-      - name: Verify BlackDuck Compliance - Application
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: App-Build-${packageVersion}
-        securityRiskMediumThreshold: 25
-        securityRiskLowThreshold: 100
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-      - name: Verify BlackDuck Compliance - Container
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: Container-Build-${packageVersion}
-        securityRiskHighThreshold: 5
-        securityRiskMediumThreshold: 5
-        securityRiskLowThreshold: 5
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-    - name: Check UAT Compliance
-      type: xlrelease.ParallelGroup
-      tasks:
-      - name: Verify BlackDuck Compliance - Application
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: App-Build-${packageVersion}
-        securityRiskMediumThreshold: 25
-        securityRiskLowThreshold: 100
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-      - name: Verify BlackDuck Compliance - Container
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: Container-Build-${packageVersion}
-        securityRiskHighThreshold: 5
-        securityRiskMediumThreshold: 5
-        securityRiskLowThreshold: 5
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
+    - name: Verify BlackDuck Compliance
+      type: blackduck.checkCompliance
+      blackduckServer: bizdevhub
+      projectName: ${application}
+      versionName: App-Build-${packageVersion}
+      securityRiskMediumThreshold: 25
+      securityRiskLowThreshold: 25
+      licenseRiskHighThreshold: 25
+      licenseRiskMediumThreshold: 25
+      licenseRiskLowThreshold: 25
+      operationalRiskHighThreshold: 999
+      operationalRiskMediumThreshold: 999
+      operationalRiskLowThreshold: 999
     - name: Deploy ${packageId} to ACC environment
       type: xldeploy.Deploy
       server: XL Deploy
@@ -217,36 +123,19 @@ spec:
     - name: Ready to go?
       type: xlrelease.GateTask
       team: Release mgmt.
-    - name: Check Org Compliance
-      type: xlrelease.ParallelGroup
-      tasks:
-      - name: Verify BlackDuck Compliance - Application
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: App-Build-${packageVersion}
-        securityRiskMediumThreshold: 25
-        securityRiskLowThreshold: 100
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
-      - name: Verify BlackDuck Compliance - Container
-        type: blackduck.checkCompliance
-        blackduckServer: bizdevhub
-        projectName: ${application}
-        versionName: Container-Build-${packageVersion}
-        securityRiskHighThreshold: 5
-        securityRiskMediumThreshold: 5
-        securityRiskLowThreshold: 5
-        licenseRiskHighThreshold: 10
-        licenseRiskMediumThreshold: 10
-        licenseRiskLowThreshold: 10
-        operationalRiskHighThreshold: 999
-        operationalRiskMediumThreshold: 999
-        operationalRiskLowThreshold: 999
+    - name: Verify BlackDuck Compliance
+      type: blackduck.checkCompliance
+      blackduckServer: bizdevhub
+      projectName: ${application}
+      versionName: App-Build-${packageVersion}
+      securityRiskMediumThreshold: 25
+      securityRiskLowThreshold: 100
+      licenseRiskHighThreshold: 25
+      licenseRiskMediumThreshold: 25
+      licenseRiskLowThreshold: 25
+      operationalRiskHighThreshold: 999
+      operationalRiskMediumThreshold: 999
+      operationalRiskLowThreshold: 999
     - name: Deploy ${packageId} to PROD
       type: xldeploy.Deploy
       server: XL Deploy
@@ -256,25 +145,12 @@ spec:
     - name: Execute smoke tests
       type: xlrelease.Task
       team: QA
-    - name: Verify no Seeker vulnerabilities
-      type: seeker.CheckCompliance
-      server: seeker
-      projectKey: bois
-      projectVersion: ${packageVersion}
-      severity: CRITICAL
-      threshold: "0"
     - name: Notification
       type: xlrelease.ParallelGroup
       tasks:
       - name: Alert marketing
         type: xlrelease.Task
         team: Release mgmt.
-      - name: Application ${packageId} is live!
-        type: xlrelease.NotificationTask
-        team: Release mgmt.
-        addresses:
-        - vagrant@localhost
-        subject: Application ${packageId} is live!
     color: '#dd4b39'
   variables:
   - type: xlrelease.StringVariable
@@ -285,7 +161,7 @@ spec:
     key: packageId
   - type: xlrelease.StringVariable
     key: packageVersion
-    value: 1.0.33
+    value: 1.0.34
   - type: xlrelease.StringVariable
     key: application
   riskProfile: Default risk profile
@@ -391,14 +267,6 @@ spec:
     projectName: InsecureBank
     versionFilterType: CUSTOM_VERSION
     versionFilterRegex: ^App-Build-1.0.(.)*$
-  - name: BlackDuck risk trend
-    type: blackduck.BlackduckRiskTrendTile
-    row: 5
-    col: 0
-    blackduckServer: bizdevhub
-    projectName: InsecureBank
-    versionFilterType: CUSTOM_VERSION
-    versionFilterRegex: ^Container-Build-1.0.(.)*
   - name: JIRA issues
     type: jira.JiraQueryTile
     row: 4
@@ -408,15 +276,19 @@ spec:
   - name: Deployed versions on QA
     type: xld.XLDVersionsTile
     row: 5
-    col: 2
+    col: 1
     xldeployServer: XL Deploy
     environment: Environments/dev
   - name: Deployed versions UAT
     type: xld.XLDVersionsTile
-    row: 6
+    row: 5
     col: 2
     xldeployServer: XL Deploy
     environment: Environments/dev
+  - name: XL Deploy deployments
+    type: xlrelease.XLDeployTile
+    row: 5
+    col: 0
   parentTemplate: Sample Release Template with XL Deploy
 - type: xlrelease.Dashboard
   owner: admin
